@@ -14,8 +14,10 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowCaloriesEvent;
+import seedu.address.commons.events.ui.ShowWeightLogEvent;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.HtmlFormatter;
+import seedu.address.model.util.WeightLogHtmlFormatter;
 
 /**
  * The Browser Panel of the App.
@@ -23,8 +25,6 @@ import seedu.address.model.util.HtmlFormatter;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String SEARCH_PAGE_URL =
-            "https://www.google.com.sg/search?q=";
 
     //@@author hypertun
     public static final String CALCULATOR_PREFIX_URL = "http://www.calculator.net/calorie-calculator.html?ctype=metric";
@@ -92,6 +92,15 @@ public class BrowserPanel extends UiPart<Region> {
                 + CALCULATOR_SUFFIX_URL);
     }
 
+    //@@author wenhao53
+    /**
+     *  Displays a HTML page that contains a line chart showing past weight changes of the given person
+     */
+    public void loadPersonWeightLog(Person person) {
+        browser.getEngine().loadContent(WeightLogHtmlFormatter.getWeightLogHtmlFormat(person));
+    }
+    //@@author
+
     /**
      * Frees resources allocated to the browser.
      */
@@ -111,6 +120,15 @@ public class BrowserPanel extends UiPart<Region> {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,
                 "Processing Calories of " + event.person.getName().fullName));
         loadPersonCalories(event.person);
+    }
+    //@@author
+
+    //@@author wenhao53
+    @Subscribe
+    private void handleShowWeightLogEvent(ShowWeightLogEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,
+                "Processing weight log of " + event.person.getName().fullName));
+        loadPersonWeightLog(event.person);
     }
     //@@author
 }

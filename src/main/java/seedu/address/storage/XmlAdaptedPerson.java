@@ -19,6 +19,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Weight;
+import seedu.address.model.person.WeightLog;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -46,6 +47,8 @@ public class XmlAdaptedPerson {
     private String age;
     @XmlElement(required = true)
     private String activityLevel;
+    @XmlElement(required = true)
+    private String weightLog;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -61,7 +64,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address,
                             String height, String weight, String gender, String age, String activityLevel,
-                            List<XmlAdaptedTag> tagged) {
+                            WeightLog weightLog, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -71,6 +74,7 @@ public class XmlAdaptedPerson {
         this.gender = gender;
         this.age = age;
         this.activityLevel = activityLevel;
+        this.weightLog = weightLog.toString();
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -91,6 +95,7 @@ public class XmlAdaptedPerson {
         gender = source.getGender().value;
         age = source.getAge().value;
         activityLevel = source.getActivityLevel().value;
+        weightLog = source.getWeightLog().toString();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -180,9 +185,10 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(ActivityLevel.MESSAGE_ACTIVITYLEVEL_CONSTRAINTS);
         }
         final ActivityLevel activityLevel = new ActivityLevel(this.activityLevel);
-
         final Set<Tag> tags = new HashSet<>(personTags);
-        return new Person(name, phone, email, address, height, weight, gender, age, activityLevel, tags);
+
+        return new Person(name, phone, email, address, height, weight, gender, age, activityLevel,
+                new WeightLog(weight), tags);
     }
 
     @Override

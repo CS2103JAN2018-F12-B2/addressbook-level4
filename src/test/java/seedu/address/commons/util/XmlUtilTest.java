@@ -15,6 +15,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Weight;
+import seedu.address.model.person.WeightLog;
 import seedu.address.storage.XmlAdaptedPerson;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableAddressBook;
@@ -86,7 +88,8 @@ public class XmlUtilTest {
                 MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
                 null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                VALID_HEIGHT, VALID_WEIGHT, VALID_GENDER, VALID_AGE, VALID_ACTIVITYLEVEL, VALID_TAGS);
+                VALID_HEIGHT, VALID_WEIGHT, VALID_GENDER, VALID_AGE, VALID_ACTIVITYLEVEL,
+                new WeightLog(new Weight(VALID_WEIGHT)), VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -96,7 +99,8 @@ public class XmlUtilTest {
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                VALID_HEIGHT, VALID_WEIGHT, VALID_GENDER, VALID_AGE, VALID_ACTIVITYLEVEL, VALID_TAGS);
+                VALID_HEIGHT, VALID_WEIGHT, VALID_GENDER, VALID_AGE, VALID_ACTIVITYLEVEL,
+                new WeightLog(new Weight(VALID_WEIGHT)), VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -106,7 +110,8 @@ public class XmlUtilTest {
                 VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
                 VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
-                VALID_HEIGHT, VALID_WEIGHT, VALID_GENDER, VALID_AGE, VALID_ACTIVITYLEVEL, VALID_TAGS);
+                VALID_HEIGHT, VALID_WEIGHT, VALID_GENDER, VALID_AGE, VALID_ACTIVITYLEVEL,
+                new WeightLog(new Weight(VALID_WEIGHT)), VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
